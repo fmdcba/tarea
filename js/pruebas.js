@@ -1,4 +1,4 @@
-function probarValidarCantidadFamiliares(){
+/* function probarValidarCantidadFamiliares(){
   console.assert(validarCantidadFamiliares(0) === 'Ingresa la cantidad de familiares para continuar',
   'Validar cantidad de familiares no validó que se haya ingresado al menos un número');
 
@@ -43,3 +43,20 @@ function probarvalidarSalariosFamiliares(){
 probarValidarCantidadFamiliares();
 probarValidarEdadesFamiliares();
 probarvalidarSalariosFamiliares();
+ */
+
+function probarValidarCantidad(){
+  console.assert(validarCantidad(-2) === 'La cantidad de integrantes debe ser mayor a 0',
+    'Validar cantidad integrantes no validó que la cantidad de integrantes no fuera 0'
+  );
+
+  console.assert(validarCantidad(1.2) === 'La cantiadad de integrantes debe ser un número entero',
+    'Validar cantidad integrantes no validó que el numero ingresado sea un entero'
+  );
+
+  console.assert(validarCantidad(190) === 'La cantidad de integrantes no puede superar 180',
+    'Validar cantidad integrantes no validó que la cantidad sea menor a 180'
+  );
+}
+
+probarValidarCantidad();

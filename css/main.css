@@ -36,3 +36,11 @@ section {
   justify-content: center;
   align-items: center;
 }
+
+.error {
+  border: solid 2px red;
+}
+
+li {
+  color: red;
+}
