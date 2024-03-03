@@ -50,7 +50,7 @@ function probarValidarCantidad(){
     'Validar cantidad integrantes no validó que la cantidad de integrantes no fuera 0'
   );
 
-  console.assert(validarCantidad(1.2) === 'La cantiadad de integrantes debe ser un número entero',
+  console.assert(validarCantidad(1.2) === 'La cantidad de integrantes debe ser un número entero',
     'Validar cantidad integrantes no validó que el numero ingresado sea un entero'
   );
 
