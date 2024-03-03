@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculador Familiar</title>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  <header>
+    <div class="circulo"></div>
+    <h1>Tarea</h1>
+  </header>
+
+  <main>
+    <h2>Calculador de Salarios</h2>
+
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet quae veritatis animi tenetur nemo omnis accusamus cumque quod fuga minus, hic non sequi, voluptatibus deleniti adipisci repellendus, architecto expedita eius.
+    </p>
+
+    <form>
+      <label>Cuantas personas hay en tu grupo familiar? </label>
+      <input type="number" id="cantidad-familiares">
+      <button type="submit" id="crear-familiar">Ingresar</button>
+      <button type="reset" id="reiniciar" class="ocultar">Reiniciar</button>
+      <div id="errores">
+      </div>
+    </form>
+
+    <section id="familiares"></section>
+
+    <button type="button" id="calcular-edades" class="ocultar">Calcular Edades</button>
+    <button type="button" id="calcular-salarios" class="ocultar">Calcular Salarios</button>
+
+
+    <div id="resultados">
+      <section id="resultado-edades" class="ocultar">
+          <p>La mayor edad es: <span id="mayor-edad"></span></p>
+          <p>La menor edad es: <span id="menor-edad"></span></p>
+          <p>La edad promedio es: <span id="promedio-edad"></span> (aproximadamente)</p>
+      </section>
+
+      <hr>
+
+      <section id="resultado-salarios" class="ocultar">
+          <p>El mayor de los salarios es: <span id="mayor-salario"></span></p>
+          <p>El menor de los salarios es: <span id="menor-salario"></span></p>
+          <p>El promedio anual de los salarios es: <span id="promedio-anual-salario"></span> (aproximadamente)</p>
+          <p>El promedio mensual salarios es: <span id="promedio-mensual-salario"></span> (aproximadamente)</p>
+      </section>
+    </div>
+  </main>
+  <script type="text/javascript" src="js/calculos.js"></script>
+  <script type="text/javascript" src="js/main.js"></script>
+  <script type="text/javascript" src="js/pruebas.js"></script>
+</body>
+</html>
