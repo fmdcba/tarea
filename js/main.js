@@ -58,6 +58,7 @@ function manejarErrores(errores){
     const error = errores[key];
     const $form = document.querySelector('form');
     const $errorAnterior = document.querySelector('li');
+    const $botoncalcularEdades = document.querySelector('#calcular-edades');
 
     if (error) {
       $form[key].className = 'error';
@@ -77,6 +78,9 @@ function manejarErrores(errores){
       if($errorAnterior !== null) {
         $errorAnterior.remove();
       }
+
+      const $botoncalcularEdades = document.querySelector('#calcular-edades');
+      $botoncalcularEdades.className = '';
     }
   });
 
