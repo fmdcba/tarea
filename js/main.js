@@ -3,12 +3,28 @@ document.querySelector('#siguiente-paso').onclick = function(e) {
   const cantidadIntegrantes = Number($form.integrantes.value);
 
   borrarIntegrantesAnteriores();
-  const esExito = validarCantidadIntegrantes(cantidadIntegrantes) === 0;
+  const esExito = validarCampo('integrantes', cantidadIntegrantes) === 0;
 
   esExito ? crearIntegrante(cantidadIntegrantes) : '';
 
   e.preventDefault();
 }
+
+/* document.querySelector('#calcular-edades').onclick = function(e) {
+  const numeros = obtenerEdadesIntegrantes();
+} */
+
+function obtenerEdadesIntegrantes(){
+  const $edades = document.querySelectorAll('#edades');
+  const edades = [];
+
+  $edades.forEach(function(edad) {
+    validarEdad()
+    edades.push(edad)
+  })
+}
+
+function validarCampo(){}
 
 function crearIntegrante(cantidad){
   for (let i = 0; i < cantidad; i++) {
@@ -43,8 +59,16 @@ function borrarIntegrantesAnteriores(){
   })
 }
 
-function validarCantidadIntegrantes(integrantes){
-  const error = {'integrantes': validarCantidad(integrantes)};
+function validarCampo(campo, datos){
+  const error = {};
+
+  if (campo === 'integrantes') {
+    error[campo] = validarCantidad(datos);
+  } else if (campo === 'edades') {
+    error[campo] = validarEdad(datos);
+  } else if (campo === 'salarios') {
+    error[campo] = validarSalario(datos);
+  }
 
   return manejarErrores(error);
 }
@@ -58,7 +82,6 @@ function manejarErrores(errores){
     const error = errores[key];
     const $form = document.querySelector('form');
     const $errorAnterior = document.querySelector('li');
-    const $botoncalcularEdades = document.querySelector('#calcular-edades');
 
     if (error) {
       $form[key].className = 'error';
@@ -98,6 +121,35 @@ function validarCantidad(cantidad){
 
   if(cantidad > 180) {
     return 'La cantidad de integrantes no puede superar 180';
+  }
+
+  return '';
+}
+
+
+function validarEdad(edad) {
+  if (edad <= 0) {
+    return 'La edad debe ser mayor a 0';
+  }
+
+  if(!Number.isInteger(edad)) {
+    return 'La edad debe ser un número entero';
+  }
+
+  if(edad > 130) {
+    return 'La edad no puede superar 130';
+  }
+
+  return '';
+}
+
+function validarSalario(salario) {
+  if (salario <= 0) {
+    return 'El salario debe ser mayor a 0';
+  }
+
+  if(salario > 10000000000) {
+    return 'El salario no puede superar 10000000000';
   }
 
   return '';
