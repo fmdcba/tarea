@@ -1,16 +1,37 @@
-document.querySelector('#crear-familiares').onclick = function(e) {
-  const $cantidadFamiliares = document.querySelector('#cantidad-familiares');
-  const cantidadFamiliares = Number($cantidadFamiliares.value);
+document.querySelector('#siguiente-paso').onclick = function(e) {
+  const $form = document.querySelector('form');
+  const cantidadIntegrantes = $form.integrantes.value;
 
-  if(procesarValidacion(validarCantidadFamiliares(cantidadFamiliares)) === '') {
-    crearFamiliares(cantidadFamiliares);
-    manejarSalarios();
-  }
+  borrarIntegrantesAnteriores();
+  validarCantidadIntegrantes(cantidadIntegrantes);
+  crearIntegrante(cantidadIntegrantes);
 
   e.preventDefault();
 }
 
-function crearFamiliares(cantidadFamiliares){
+function borrarIntegrantesAnteriores(){
+  return '';
+}
+
+function validarCantidadIntegrantes(cantidad){
+  if (cantidad === 0) {
+    return 'La cantidad de integrantes debe ser mayor a 0';
+  }
+
+  if (cantidad < 0) {
+    return 'La cantidad de integrantes no puede ser menor a 0';
+  }
+
+  if(!Number.isInteger(cantidad)) {
+    return 'La cantiadad de integrantes debe ser un número entero';
+  }
+
+  if(cantidad > 180) {
+    return 'La cantidad de integrantes no puede superar 180';
+  }
+}
+
+/* function crearFamiliares(cantidadFamiliares){
 
   if (cantidadFamiliares > 0) {
     mostrarElemento('reiniciar');
@@ -296,3 +317,4 @@ function procesarValidacion(validacion){
     return '';
   }
 }
+ */

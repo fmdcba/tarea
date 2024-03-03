@@ -16,38 +16,42 @@
     <h2>Calculador de Salarios</h2>
 
     <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet quae veritatis animi tenetur nemo omnis accusamus cumque quod fuga minus, hic non sequi, voluptatibus deleniti adipisci repellendus, architecto expedita eius.
+      A partir de la cantidad de integrantes de tu familia u otro grupo de
+      personas, averiguá que edades y salarios son los mayores, menores y el
+      promedio de estos mismos...
     </p>
 
     <form>
-      <label>Cuantas personas hay en tu grupo familiar? </label>
-      <input type="number" id="cantidad-familiares">
-      <button type="submit" id="crear-familiar">Ingresar</button>
-      <button type="reset" id="reiniciar" class="ocultar">Reiniciar</button>
-      <div id="errores">
-      </div>
+      <label>Ingrese la cantidad de integrantes</label>
+      <input type="number" name="integrantes">
+      <button type="submit" id="siguiente-paso">Siguiente</button>
+      <button type="reset" id="reiniciar" class="oculto">Reiniciar</button>
+      <ul id="errores"></ul>
     </form>
+
+    <hr>
 
     <section id="familiares"></section>
 
-    <button type="button" id="calcular-edades" class="ocultar">Calcular Edades</button>
-    <button type="button" id="calcular-salarios" class="ocultar">Calcular Salarios</button>
+    <button type="button" id="calcular-edades" class="oculto">Calcular Edades</button>
+    <button type="button" id="calcular-salarios" class="oculto">Calcular Salarios</button>
 
+    <hr>
 
     <div id="resultados">
-      <section id="resultado-edades" class="ocultar">
-          <p>La mayor edad es: <span id="mayor-edad"></span></p>
-          <p>La menor edad es: <span id="menor-edad"></span></p>
-          <p>La edad promedio es: <span id="promedio-edad"></span> (aproximadamente)</p>
+      <section id="resultado-edades">
+          <p>La mayor edad es: <span id="mayor-edad" class="oculto"></span></p>
+          <p>La menor edad es: <span id="menor-edad" class="oculto"></span></p>
+          <p>La edad promedio es: <span id="promedio-edad" class="oculto"></span> (aproximadamente)</p>
       </section>
 
       <hr>
 
-      <section id="resultado-salarios" class="ocultar">
-          <p>El mayor de los salarios es: <span id="mayor-salario"></span></p>
-          <p>El menor de los salarios es: <span id="menor-salario"></span></p>
-          <p>El promedio anual de los salarios es: <span id="promedio-anual-salario"></span> (aproximadamente)</p>
-          <p>El promedio mensual salarios es: <span id="promedio-mensual-salario"></span> (aproximadamente)</p>
+      <section id="resultado-salarios">
+          <p>El mayor de los salarios es: <span id="mayor-salario" class="oculto"></span></p>
+          <p>El menor de los salarios es: <span id="menor-salario" class="oculto"></span></p>
+          <p>El promedio anual de los salarios es: <span id="promedio-anual-salario" class="oculto"></span> (aproximadamente)</p>
+          <p>El promedio mensual salarios es: <span id="promedio-mensual-salario" class="oculto"></span> (aproximadamente)</p>
       </section>
     </div>
   </main>
