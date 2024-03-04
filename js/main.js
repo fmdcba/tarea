@@ -37,6 +37,27 @@ document.querySelector('#calcular-edades').onclick = function(e) {
   e.preventDefault()
 }
 
+document.querySelector('#calcular-salarios').onclick = function(e) {
+  const $salarios = document.querySelectorAll('.salarios');
+  const esValido = [];
+  const salarios = [];
+
+  borrarErroresAnteriores();
+
+  $salarios.forEach(function($salario) {
+    const salarioIntegrante = Number($salario.value);
+    salarios.push(salarioIntegrante);
+
+    esValido.push(validarCampo($salario, salarioIntegrante));
+  })
+
+  if (!esValido.includes(false)) {
+    mostrarResultado('salario', salarios);
+  }
+
+  e.preventDefault()
+}
+
 function manejarBotonesSalario(){
   const $botonesSalario = document.querySelectorAll('.boton-salario');
 
