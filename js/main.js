@@ -9,6 +9,7 @@ document.querySelector('#siguiente-paso').onclick = function(e) {
   if (esValido) {
     mostrarBoton('calcular-edades');
     crearIntegrantes(cantidadIntegrantes);
+    manejarBotonesSalario();
   }
 
   e.preventDefault();
@@ -30,9 +31,44 @@ document.querySelector('#calcular-edades').onclick = function(e) {
 
   if (!esValido.includes(false)) {
     mostrarResultado('edad', edades);
+    manejarSalarios();
   }
 
   e.preventDefault()
+}
+
+function manejarBotonesSalario(){
+  const $botonesSalario = document.querySelectorAll('.boton-salario');
+
+  for (let i  = 0; i < $botonesSalario.length; i++) {
+    $botonesSalario[i].onclick = function(e) {
+      crearCampoSalario(i);
+
+      e.preventDefault();
+    }
+  }
+}
+
+function crearCampoSalario(indice) {
+  const $textoSalario = document.createElement('label');
+  $textoSalario.textContent = 'Salario Anual: $';
+  $textoSalario.id = `texto-salario-${indice}`;
+
+  const $campoSalario = document.createElement('input');
+  $campoSalario.type = 'number';
+  $campoSalario.id = `campo-salario-${indice}`;
+  $campoSalario.className = `salarios`;
+
+  const $botonCancelar = document.createElement('button');
+  $botonCancelar.textContent = 'Cancelar';
+  $botonCancelar.id = indice;
+  $botonCancelar.className = 'boton-cancelar-salario';
+
+  const $camposIntegrantes = document.querySelectorAll('.integrantes');
+
+  $camposIntegrantes[indice].appendChild($textoSalario);
+  $camposIntegrantes[indice].appendChild($campoSalario);
+  $camposIntegrantes[indice].appendChild($botonCancelar);
 }
 
 function mostrarResultado(tipo, resultado){
