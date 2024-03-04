@@ -43,9 +43,49 @@ function manejarBotonesSalario(){
   for (let i  = 0; i < $botonesSalario.length; i++) {
     $botonesSalario[i].onclick = function(e) {
       crearCampoSalario(i);
+      mostrarBoton('calcular-salarios');
+      ocultarBoton(`boton-agregar-${i}`);
+      manejarBotonesCancelarSalario();
 
       e.preventDefault();
     }
+  }
+}
+
+function manejarBotonesCancelarSalario(){
+  const $botonesCancelarSalario = document.querySelectorAll('.boton-cancelar-salario');
+  contador = 0;
+
+  for(let i = 0; i < $botonesCancelarSalario.length; i++) {
+    $botonesCancelarSalario[i].onclick = function() {
+      const $idBotonCancelar = Number($botonesCancelarSalario[i].id);
+
+      while (contador !== $idBotonCancelar) {
+        contador++;
+      }
+
+      if (contador === $idBotonCancelar) {
+        removerCamposSalario(contador, $botonesCancelarSalario[i]);
+        contador = 0;
+      }
+    }
+  }
+}
+
+function removerCamposSalario(numero, boton) {
+  const $textoSalarioARemover = document.querySelector(`#texto-salario-${numero}`);
+  const $campoSalarioARemover = document.querySelector(`#campo-salario-${numero}`);
+
+  $textoSalarioARemover.remove();
+  $campoSalarioARemover.remove();
+  boton.remove();
+
+  mostrarBoton(`boton-agregar-${numero}`);
+
+  $botonesCancelarRestantes = document.querySelectorAll('.boton-cancelar-salario');
+
+  if ($botonesCancelarRestantes.length === 0) {
+    ocultarBoton('calcular-salarios');
   }
 }
 
@@ -172,6 +212,11 @@ function manejarErrores(errores, $campo){
 function mostrarBoton(id) {
   const $boton = document.querySelector(`#${id}`)
   $boton.classList.remove('oculto');
+}
+
+function ocultarBoton(id) {
+  const $boton = document.querySelector(`#${id}`)
+  $boton.classList.add('oculto');
 }
 
 function validarCantidad(cantidad){
