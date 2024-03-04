@@ -16,18 +16,34 @@ document.querySelector('#siguiente-paso').onclick = function(e) {
 
 document.querySelector('#calcular-edades').onclick = function(e) {
   const $edades = document.querySelectorAll('.edades');
+  const esValido = [];
+  const edades = [];
 
- /*  borrarEdadesAnteriores(); */
   borrarErroresAnteriores();
 
   $edades.forEach(function($edad) {
     const edadIntegrante = Number($edad.value);
+    edades.push(edadIntegrante);
 
-    validarCampo($edad, edadIntegrante)
+    esValido.push(validarCampo($edad, edadIntegrante));
   })
 
+  if (!esValido.includes(false)) {
+    mostrarResultado('edad', edades);
+  }
 
   e.preventDefault()
+}
+
+function mostrarResultado(tipo, resultado){
+  document.querySelector(`#mayor-${tipo}`).textContent = obtenerMayorNumero(resultado);
+  document.querySelector(`#menor-${tipo}`).textContent = obtenerMenorNumero(resultado);
+  document.querySelector(`#promedio-${tipo}`).textContent = obtenerPromedio(resultado);
+
+  if (tipo === 'salario') {
+    document.querySelector(`#promedio-${tipo}-anual`).textContent = obtenerPromedio(resultado);
+    document.querySelector(`#promedio-${tipo}-mensual`).textContent = obtenerPromedio(resultado);
+  }
 }
 
 function crearIntegrantes(cantidad){
