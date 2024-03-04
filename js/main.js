@@ -1,32 +1,36 @@
 document.querySelector('#siguiente-paso').onclick = function(e) {
-  const $form = document.querySelector('form');
-  const cantidadIntegrantes = Number($form.integrantes.value);
+  const $integrantes = document.querySelector('#integrantes');
+  const cantidadIntegrantes = Number($integrantes.value);
 
   borrarIntegrantesAnteriores();
-  const esExito = validarCampo('integrantes', cantidadIntegrantes) === 0;
+  borrarErroresAnteriores();
+  const esValido = validarCampo($integrantes, cantidadIntegrantes);
 
-  esExito ? crearIntegrante(cantidadIntegrantes) : '';
+  if (esValido) {
+    mostrarBoton('calcular-edades');
+    crearIntegrantes(cantidadIntegrantes);
+  }
 
   e.preventDefault();
 }
 
-/* document.querySelector('#calcular-edades').onclick = function(e) {
-  const numeros = obtenerEdadesIntegrantes();
-} */
+document.querySelector('#calcular-edades').onclick = function(e) {
+  const $edades = document.querySelectorAll('.edades');
 
-function obtenerEdadesIntegrantes(){
-  const $edades = document.querySelectorAll('#edades');
-  const edades = [];
+ /*  borrarEdadesAnteriores(); */
+  borrarErroresAnteriores();
 
-  $edades.forEach(function(edad) {
-    validarEdad()
-    edades.push(edad)
+  $edades.forEach(function($edad) {
+    const edadIntegrante = Number($edad.value);
+
+    validarCampo($edad, edadIntegrante)
   })
+
+
+  e.preventDefault()
 }
 
-function validarCampo(){}
-
-function crearIntegrante(cantidad){
+function crearIntegrantes(cantidad){
   for (let i = 0; i < cantidad; i++) {
     const $campoIntegrante = document.createElement('div');
     $campoIntegrante.className = 'integrantes'
@@ -38,6 +42,7 @@ function crearIntegrante(cantidad){
     $IntegranteEdad.type = 'number';
     $IntegranteEdad.placeholder = 'Ingresar Edad';
     $IntegranteEdad.className = 'edades';
+    $IntegranteEdad.id = `edad-${i + 1}`;
 
     const $botonAgregarSalario = document.createElement('button');
     $botonAgregarSalario.textContent = 'Agregar Salario';
@@ -48,66 +53,73 @@ function crearIntegrante(cantidad){
     $campoIntegrante.appendChild($IntegranteEdad);
     $campoIntegrante.appendChild($botonAgregarSalario);
 
-    const $contenedorIntegrantes = document.querySelector('#integrantes');
+    const $contenedorIntegrantes = document.querySelector('#contenedor-integrantes');
     $contenedorIntegrantes.appendChild($campoIntegrante);
   }
 }
 
-function borrarIntegrantesAnteriores(){
+function borrarIntegrantesAnteriores() {
   document.querySelectorAll('.integrantes').forEach(function (integrante) {
     integrante.remove();
   })
 }
 
-function validarCampo(campo, datos){
-  const error = {};
+function borrarErroresAnteriores() {
+  const $errorAnterior = document.querySelectorAll('li');
 
-  if (campo === 'integrantes') {
-    error[campo] = validarCantidad(datos);
-  } else if (campo === 'edades') {
-    error[campo] = validarEdad(datos);
-  } else if (campo === 'salarios') {
-    error[campo] = validarSalario(datos);
-  }
+  $errorAnterior.forEach(function($error) {
+    if($error !== null) {
+      $error.remove();
+    }
+  })
 
-  return manejarErrores(error);
 }
 
-function manejarErrores(errores){
+function validarCampo($campo, contenido) {
+  const error = {};
+  const idCampo = $campo.id;
+
+  if ($campo.id === 'integrantes') {
+    error[idCampo] = validarCantidad(contenido);
+  }
+
+  if ($campo.classList.contains('edades')) {
+    error[idCampo] = validarEdad(contenido);
+  } else if ($campo.classList.contains('salarios')) {
+    error[idCampo] = validarSalario(contenido);
+  }
+
+  return manejarErrores(error, $campo);
+}
+
+function manejarErrores(errores, $campo){
   const keys = Object.keys(errores)
   const $errores = document.querySelector('#errores');
-  let contador = 0;
+
+  let esValido = true;
 
   keys.forEach(function(key) {
     const error = errores[key];
-    const $form = document.querySelector('form');
-    const $errorAnterior = document.querySelector('li');
 
     if (error) {
-      $form[key].className = 'error';
-      contador++;
-
-      if($errorAnterior !== null) {
-        $errorAnterior.remove();
-      }
+      esValido = false;
+      $campo.classList.add('error');
 
       const $error = document.createElement('li');
       $error.textContent = error;
       $errores.appendChild($error);
-
     } else {
-      $form[key].className = '';
-
-      if($errorAnterior !== null) {
-        $errorAnterior.remove();
-      }
-
-      const $botoncalcularEdades = document.querySelector('#calcular-edades');
-      $botoncalcularEdades.className = '';
+      esValido = true;
+      $campo.classList.remove('error')
     }
   });
 
-  return contador;
+  return esValido;
+}
+
+function mostrarBoton(id) {
+  const $boton = document.querySelector(`#${id}`)
+  $boton.classList.remove('oculto');
 }
 
 function validarCantidad(cantidad){
