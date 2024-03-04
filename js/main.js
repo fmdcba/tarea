@@ -132,14 +132,21 @@ function crearCampoSalario(indice) {
   $camposIntegrantes[indice].appendChild($botonCancelar);
 }
 
-function mostrarResultado(tipo, resultado){
-  document.querySelector(`#mayor-${tipo}`).textContent = obtenerMayorNumero(resultado);
-  document.querySelector(`#menor-${tipo}`).textContent = obtenerMenorNumero(resultado);
-  document.querySelector(`#promedio-${tipo}`).textContent = obtenerPromedio(resultado);
+function mostrarResultado(tipo, resultados){
+  document.querySelector(`#mayor-${tipo}`).textContent = obtenerMayorNumero(resultados);
+  document.querySelector(`#menor-${tipo}`).textContent = obtenerMenorNumero(resultados);
 
   if (tipo === 'salario') {
-    document.querySelector(`#promedio-${tipo}-anual`).textContent = obtenerPromedio(resultado);
-    document.querySelector(`#promedio-${tipo}-mensual`).textContent = obtenerPromedio(resultado);
+    const numerosParaSalarioMensual=[];
+
+    resultados.forEach(function(resultado) {
+      numerosParaSalarioMensual.push(resultado / 12);
+    })
+
+    document.querySelector(`#promedio-${tipo}-anual`).textContent = obtenerPromedio(resultados);
+    document.querySelector(`#promedio-${tipo}-mensual`).textContent = obtenerPromedio(numerosParaSalarioMensual);
+  } else {
+    document.querySelector(`#promedio-${tipo}`).textContent = obtenerPromedio(resultados);
   }
 }
 
